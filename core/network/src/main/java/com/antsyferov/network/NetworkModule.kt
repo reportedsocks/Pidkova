@@ -9,9 +9,13 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
+import io.ktor.client.plugins.websocket.WebSockets
 import io.ktor.client.request.get
+import io.ktor.serialization.kotlinx.KotlinxWebsocketSerializationConverter
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.protobuf.ProtoBuf
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Named
@@ -21,6 +25,7 @@ import org.koin.core.annotation.Single
 @ComponentScan
 class NetworkModule {
 
+    @OptIn(ExperimentalSerializationApi::class)
     @Single
     @Named("authorised")
     fun provideAuthorisedClient(
@@ -53,6 +58,12 @@ class NetworkModule {
                         )
                     }
                 }
+            }
+
+            install(WebSockets) {
+                pingIntervalMillis = 10000
+
+                contentConverter = KotlinxWebsocketSerializationConverter(ProtoBuf)
             }
         }
 

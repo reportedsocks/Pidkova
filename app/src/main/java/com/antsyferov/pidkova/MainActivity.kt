@@ -83,12 +83,33 @@ class MainActivity : ComponentActivity() {
                             onClick = {
                                 coroutineScope.launch(Dispatchers.IO) {
                                     val response = remoteApi.auth()
-                                    Log.d("MyLogs", response.toString())
                                 }
 
                             }
                         ) {
                             Text("auth")
+                        }
+
+                        Button(
+                            onClick = {
+                                coroutineScope.launch(Dispatchers.IO) {
+                                    val response = remoteApi.openSocket()
+                                }
+
+                            }
+                        ) {
+                            Text("Open Socket")
+                        }
+
+                        Button(
+                            onClick = {
+                                coroutineScope.launch(Dispatchers.IO) {
+                                    val response = remoteApi.sendMessage()
+                                }
+
+                            }
+                        ) {
+                            Text("send message")
                         }
                     }
 
