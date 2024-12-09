@@ -14,6 +14,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
+import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 
 @Module
@@ -21,7 +22,10 @@ import org.koin.core.annotation.Single
 class NetworkModule {
 
     @Single
-    fun provideClient(): HttpClient {
+    @Named("authorised")
+    fun provideAuthorisedClient(
+        storage: InMemoryStorage
+    ): HttpClient {
         val client = HttpClient(CIO) {
 
             install(Logging) {
@@ -42,9 +46,37 @@ class NetworkModule {
             install(Auth) {
                 bearer {
                     loadTokens {
-                        BearerTokens(accessToken = "access", refreshToken = "refresh")
+                        val session = storage.getSession()
+                        BearerTokens(
+                            accessToken = session?.accessToken.toString(),
+                            refreshToken = session?.refreshToken.toString()
+                        )
                     }
                 }
+            }
+        }
+
+        return client
+    }
+
+    @Single
+    @Named("unauthorised")
+    fun provideUnauthorisedClient(): HttpClient {
+        val client = HttpClient(CIO) {
+
+            install(Logging) {
+                level = LogLevel.ALL
+            }
+
+            install(ContentNegotiation) {
+                json(Json {
+                    prettyPrint = true
+                    isLenient = true
+                })
+            }
+
+            install(DefaultRequest) {
+                url("http://10.0.2.2:3000/")
             }
         }
 

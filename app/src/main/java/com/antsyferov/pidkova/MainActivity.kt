@@ -78,6 +78,18 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Text("profile")
                         }
+
+                        Button(
+                            onClick = {
+                                coroutineScope.launch(Dispatchers.IO) {
+                                    val response = remoteApi.auth()
+                                    Log.d("MyLogs", response.toString())
+                                }
+
+                            }
+                        ) {
+                            Text("auth")
+                        }
                     }
 
 
