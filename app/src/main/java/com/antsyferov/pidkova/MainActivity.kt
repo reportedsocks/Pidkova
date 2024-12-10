@@ -2,6 +2,7 @@ package com.antsyferov.pidkova
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -12,22 +13,26 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.antsyferov.domain.UseCase
 import com.antsyferov.network.RemoteApiImpl
+import com.antsyferov.pidkova.home.HomeEffects
+import com.antsyferov.pidkova.home.HomeEvents
+import com.antsyferov.pidkova.home.HomeViewModel
 import com.antsyferov.pidkova.ui.theme.PidkovaTheme
-import io.ktor.client.HttpClient
-import io.ktor.client.request.get
-import io.ktor.client.statement.bodyAsText
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.qualifier.named
-import org.slf4j.LoggerFactory
 
 class MainActivity : ComponentActivity() {
 
@@ -44,76 +49,91 @@ class MainActivity : ComponentActivity() {
         Log.d("MyLogs", someInterface.javaClass.name)
         Log.d("MyLogs", useCase.javaClass.name)
         setContent {
-            PidkovaTheme {
+            KoinAndroidContext {
+                PidkovaTheme {
 
-                val viewModel = koinViewModel<MainViewModel>()
-                val coroutineScope = rememberCoroutineScope()
+                    val viewModel = koinViewModel<HomeViewModel>()
 
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column(modifier = Modifier.padding(innerPadding)) {
-                        Greeting(
-                            name = viewModel.javaClass.name
-                        )
+                    val state by viewModel.state.collectAsStateWithLifecycle()
+                    val effects = rememberFlowWithLifecycle(viewModel.effect)
 
-                        Button(
-                            onClick = {
-                                coroutineScope.launch(Dispatchers.IO) {
-                                    val response = remoteApi.getProducts()
-                                    Log.d("MyLogs", response.toString())
+                    val context = LocalContext.current
+
+                    LaunchedEffect(effects) {
+                        effects.collect {
+                            when(it) {
+                                is HomeEffects.ShowToast -> {
+                                    Toast.makeText(context, "Loaded products", Toast.LENGTH_SHORT).show()
                                 }
-
+                                else -> {}
                             }
-                        ) {
-                            Text("products")
-                        }
-
-                        Button(
-                            onClick = {
-                                coroutineScope.launch(Dispatchers.IO) {
-                                    val response = remoteApi.getProfile()
-                                    Log.d("MyLogs", response.toString())
-                                }
-
-                            }
-                        ) {
-                            Text("profile")
-                        }
-
-                        Button(
-                            onClick = {
-                                coroutineScope.launch(Dispatchers.IO) {
-                                    val response = remoteApi.auth()
-                                }
-
-                            }
-                        ) {
-                            Text("auth")
-                        }
-
-                        Button(
-                            onClick = {
-                                coroutineScope.launch(Dispatchers.IO) {
-                                    val response = remoteApi.openSocket()
-                                }
-
-                            }
-                        ) {
-                            Text("Open Socket")
-                        }
-
-                        Button(
-                            onClick = {
-                                coroutineScope.launch(Dispatchers.IO) {
-                                    val response = remoteApi.sendMessage()
-                                }
-
-                            }
-                        ) {
-                            Text("send message")
                         }
                     }
 
+                    val coroutineScope = rememberCoroutineScope()
 
+                    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                        Column(modifier = Modifier.padding(innerPadding)) {
+                            Greeting(
+                                name = state.products.toString().take(20)
+                            )
+
+                            Button(
+                                onClick = {
+                                    viewModel.sendEvent(HomeEvents.LoadProducts)
+                                }
+                            ) {
+                                Text("load products")
+                            }
+
+                            Button(
+                                onClick = {
+                                    coroutineScope.launch(Dispatchers.IO) {
+                                        val response = remoteApi.getProfile()
+                                        Log.d("MyLogs", response.toString())
+                                    }
+
+                                }
+                            ) {
+                                Text("profile")
+                            }
+
+                            Button(
+                                onClick = {
+                                    coroutineScope.launch(Dispatchers.IO) {
+                                        val response = remoteApi.auth()
+                                    }
+
+                                }
+                            ) {
+                                Text("auth")
+                            }
+
+                            Button(
+                                onClick = {
+                                    coroutineScope.launch(Dispatchers.IO) {
+                                        val response = remoteApi.openSocket()
+                                    }
+
+                                }
+                            ) {
+                                Text("Open Socket")
+                            }
+
+                            Button(
+                                onClick = {
+                                    coroutineScope.launch(Dispatchers.IO) {
+                                        val response = remoteApi.sendMessage()
+                                    }
+
+                                }
+                            ) {
+                                Text("send message")
+                            }
+                        }
+
+
+                    }
                 }
             }
         }
