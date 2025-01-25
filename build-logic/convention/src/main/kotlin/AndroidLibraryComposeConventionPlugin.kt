@@ -33,6 +33,7 @@ class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
             configureAndroidCompose(extension)
             dependencies {
                 add("implementation", libs.findLibrary("koin-androidx-compose").get())
+                add("implementation", libs.findLibrary("androidx-compose-foundation").get())
             }
         }
     }

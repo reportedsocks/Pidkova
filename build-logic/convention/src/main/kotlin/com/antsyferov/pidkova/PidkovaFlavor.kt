@@ -15,7 +15,7 @@ enum class FlavorDimension {
 enum class PidkovaFlavour(val dimension: FlavorDimension, val applicationIdSuffix: String? = null, val versionNameSuffix: String? = null) {
     demo(FlavorDimension.contentType, applicationIdSuffix = ".demo"),
     prod(FlavorDimension.contentType),
-    eldorado(FlavorDimension.vendor, applicationIdSuffix = ".eldorado", versionNameSuffix = "-eldorado"),
+    whitelabel(FlavorDimension.vendor, applicationIdSuffix = ".whitelabel", versionNameSuffix = "-whitelabel"),
     novus(FlavorDimension.vendor, applicationIdSuffix = ".novus", versionNameSuffix = "-novus")
 }
 

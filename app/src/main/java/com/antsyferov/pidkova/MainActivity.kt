@@ -14,7 +14,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -26,7 +25,7 @@ import com.antsyferov.network.RemoteApiImpl
 import com.antsyferov.pidkova.home.HomeEffects
 import com.antsyferov.pidkova.home.HomeEvents
 import com.antsyferov.pidkova.home.HomeViewModel
-import com.antsyferov.pidkova.ui.theme.PidkovaTheme
+import com.antsyferov.ui.theme.PidkovaTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject

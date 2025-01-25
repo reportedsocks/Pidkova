@@ -56,7 +56,6 @@ dependencies {
     implementation(project(":core:database"))
     implementation(project(":core:network"))
     implementation(project(":core:ui"))
-    implementation(project(":core:designsystem"))
     implementation(project(":domain"))
 
     implementation(project(":features:first_feature"))
