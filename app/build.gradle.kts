@@ -58,7 +58,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":domain"))
 
-    implementation(project(":features:first_feature"))
+    implementation(project(":features:main"))
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))

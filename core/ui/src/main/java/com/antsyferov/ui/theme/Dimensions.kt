@@ -16,5 +16,6 @@ data class PidkovaDimensions(
     val elevationLarge: Dp = 8.dp,
     val spacingSmall: Dp = 4.dp,
     val spacingMedium: Dp = 8.dp,
-    val spacingLarge: Dp = 16.dp
+    val spacingLarge: Dp = 16.dp,
+    val icon: Dp = 22.dp
 )

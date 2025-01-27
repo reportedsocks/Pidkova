@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.antsyferov.domain.UseCase
+import com.antsyferov.main.PidkovaApp
 import com.antsyferov.network.RemoteApiImpl
 import com.antsyferov.pidkova.home.HomeEffects
 import com.antsyferov.pidkova.home.HomeEvents
@@ -35,20 +36,18 @@ import org.koin.core.qualifier.named
 
 class MainActivity : ComponentActivity() {
 
-    private val anotherInterface: AnotherInterface by inject(named("impl2"))
+    /*private val anotherInterface: AnotherInterface by inject(named("impl2"))
     private val someInterface: SomeInterface by inject()
 
     private val useCase: UseCase by inject()
-    private val remoteApi: RemoteApiImpl by inject()
+    private val remoteApi: RemoteApiImpl by inject()*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        Log.d("MyLogs", anotherInterface.javaClass.name)
-        Log.d("MyLogs", someInterface.javaClass.name)
-        Log.d("MyLogs", useCase.javaClass.name)
         setContent {
-            KoinAndroidContext {
+            PidkovaApp()
+            /*KoinAndroidContext {
                 PidkovaTheme {
 
                     val viewModel = koinViewModel<HomeViewModel>()
@@ -134,23 +133,7 @@ class MainActivity : ComponentActivity() {
 
                     }
                 }
-            }
+            }*/
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PidkovaTheme {
-        Greeting("Android")
     }
 }

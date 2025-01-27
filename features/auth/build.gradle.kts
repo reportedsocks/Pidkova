@@ -4,12 +4,8 @@ plugins {
 }
 
 android {
-    buildFeatures {
-        buildConfig = true
-    }
-    namespace = "com.antsyferov.first_feature"
+    namespace = "com.antsyferov.auth"
 }
 
 dependencies {
-
 }

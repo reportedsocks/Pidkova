@@ -34,6 +34,9 @@ class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
             dependencies {
                 add("implementation", libs.findLibrary("koin-androidx-compose").get())
                 add("implementation", libs.findLibrary("androidx-compose-foundation").get())
+                add("implementation", libs.findLibrary("androidx-compose-foundation-layout").get())
+                add("implementation", libs.findLibrary("androidx-compose-material3").get())
+                add("implementation", libs.findLibrary("androidx-compose-material-iconsExtended").get())
             }
         }
     }

@@ -12,13 +12,14 @@ data class PidkovaColors(
     val secondaryVariant: Color = Red80,
     val background: Color = White,
     val surface: Color = White,
-    val error: Color = Pink,
-    val textPrimary: Color = Blue,
-    val textSecondary: Color = Green,
+    val error: Color = Red,
+    val textPrimary: Color = Black,
+    val textSecondary: Color = Black40,
     val icon: Color = Green,
     val border: Color = Pink40,
-    val buttonBackground: Color = Blue,
+    val buttonBackground: Color = Green,
+    val buttonBackgroundPressed: Color = Green80,
     val buttonText: Color = White,
     val cardBackground: Color = White,
-    val cardBorder: Color = Blue40
+    val cardBorder: Color = Blue80
 )
