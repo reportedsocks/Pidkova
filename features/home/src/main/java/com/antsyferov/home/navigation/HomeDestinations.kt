@@ -16,4 +16,4 @@ data object Cart
 @Serializable
 data object Profile
 
-val tabs = listOf(Products, Cart, Profile)
+

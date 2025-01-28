@@ -7,11 +7,8 @@ android {
     buildFeatures {
         buildConfig = true
     }
-    namespace = "com.antsyferov.home"
+    namespace = "com.antsyferov.cart"
 }
 
 dependencies {
-    implementation(project(":features:products"))
-    implementation(project(":features:cart"))
-    implementation(project(":features:profile"))
 }

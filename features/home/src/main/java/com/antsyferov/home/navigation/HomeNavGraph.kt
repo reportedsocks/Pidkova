@@ -1,6 +1,5 @@
 package com.antsyferov.home.navigation
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
@@ -15,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -26,7 +24,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import androidx.navigation.navigation
-import com.antsyferov.ui.components.Text
+import com.antsyferov.cart.navigation.cartGraph
+import com.antsyferov.products.navigation.productsGraph
+import com.antsyferov.profile.navigation.profileGraph
+
+val tabs = listOf(Products, Cart, Profile)
 
 inline fun <reified T: Any> NavGraphBuilder.homeGraph(
     navController: NavController
@@ -49,31 +51,12 @@ fun Tabs() {
             startDestination = Products,
             modifier = Modifier.weight(1f)
         ) {
-            composable<Products> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("Products")
-                }
-            }
-            composable<Cart> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("Cart")
-                }
-            }
-            composable<Profile> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("Profile")
-                }
-            }
 
+            productsGraph<Products>(tabsNavController)
+
+            cartGraph<Cart>(tabsNavController)
+
+            profileGraph<Profile>(tabsNavController)
 
         }
 
