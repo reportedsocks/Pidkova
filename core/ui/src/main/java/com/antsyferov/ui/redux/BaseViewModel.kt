@@ -1,4 +1,4 @@
-package com.antsyferov.pidkova.mvi
+package com.antsyferov.ui.redux
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.channels.Channel

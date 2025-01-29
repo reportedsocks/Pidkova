@@ -1,4 +1,4 @@
-package com.antsyferov.pidkova
+package com.antsyferov.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

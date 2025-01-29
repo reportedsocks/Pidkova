@@ -1,6 +1,6 @@
 package com.antsyferov.pidkova.home
 
-import com.antsyferov.pidkova.mvi.Reducer
+import com.antsyferov.ui.redux.Reducer
 
 class HomeReducer: Reducer<HomeState, HomeEvents, HomeEffects> {
     override fun reduce(

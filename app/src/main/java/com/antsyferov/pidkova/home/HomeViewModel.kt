@@ -2,7 +2,7 @@ package com.antsyferov.pidkova.home
 
 import androidx.lifecycle.viewModelScope
 import com.antsyferov.network.RemoteApiImpl
-import com.antsyferov.pidkova.mvi.BaseViewModel
+import com.antsyferov.ui.redux.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel

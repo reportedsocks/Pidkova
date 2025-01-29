@@ -59,6 +59,12 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(project(":features:main"))
+    implementation(project(":features:home"))
+    implementation(project(":features:auth"))
+    implementation(project(":features:onboarding"))
+    implementation(project(":features:products"))
+    implementation(project(":features:cart"))
+    implementation(project(":features:profile"))
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))

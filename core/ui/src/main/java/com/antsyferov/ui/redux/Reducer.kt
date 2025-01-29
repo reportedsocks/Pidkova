@@ -1,4 +1,4 @@
-package com.antsyferov.pidkova.mvi
+package com.antsyferov.ui.redux
 
 interface Reducer<State: Reducer.ViewState, Event: Reducer.ViewEvent, Effect: Reducer.ViewEffect> {
 
