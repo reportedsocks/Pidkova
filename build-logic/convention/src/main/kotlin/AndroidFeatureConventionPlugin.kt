@@ -27,7 +27,6 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply {
                 apply("pidkova.android.library")
-                //TODO koin
                 apply("org.jetbrains.kotlin.plugin.serialization")
             }
             extensions.configure<LibraryExtension> {
@@ -41,7 +40,12 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx.lifecycle.runtimeCompose").get())
                 add("implementation", libs.findLibrary("androidx.lifecycle.viewModelCompose").get())
                 add("implementation", libs.findLibrary("androidx.navigation.compose").get())
+
                 add("implementation", libs.findLibrary("kotlinx.serialization.json").get())
+
+                add("implementation", libs.findLibrary("coil.compose").get())
+
+
 
                 //add("testImplementation", libs.findLibrary("androidx.navigation.testing").get())
                 //add("androidTestImplementation", libs.findLibrary("androidx.lifecycle.runtimeTesting").get())

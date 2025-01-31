@@ -1,23 +1,22 @@
 package com.antsyferov.products.products_list
 
-import android.widget.Toast
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.antsyferov.products.products_list.composables.ProductsGrid
 import com.antsyferov.products.products_list.redux.ProductEffects
 import com.antsyferov.products.products_list.redux.ProductEvents
 import com.antsyferov.products.products_list.redux.ProductsState
-import com.antsyferov.ui.components.Text
+import com.antsyferov.ui.components.ScreenContainer
+import com.antsyferov.ui.components.SnackBar
+import com.antsyferov.ui.components.SnackbarHost
 import com.antsyferov.ui.rememberFlowWithLifecycle
 import com.antsyferov.ui.theme.PidkovaTheme
 import org.koin.androidx.compose.koinViewModel
@@ -31,12 +30,17 @@ fun ProductListRoot(
     val effects = rememberFlowWithLifecycle(viewModel.effect)
 
     val context = LocalContext.current
+    val snackbarState = remember { SnackbarHostState() }
 
     LaunchedEffect(effects) {
         effects.collect {
             when(it) {
                 is ProductEffects.ShowError -> {
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                    snackbarState.showSnackbar(
+                        message = "Error",
+                        duration = SnackbarDuration.Short,
+                        withDismissAction = true
+                    )
                 }
                 is ProductEffects.NavigateToProductDetails -> {
                     onNavToProductDetails(it.id)
@@ -47,31 +51,27 @@ fun ProductListRoot(
 
     ProductListScreen(
         state = state,
-        onEvent = viewModel::sendEvent
+        onEvent = viewModel::sendEvent,
+        snackbarHostState = snackbarState
     )
 }
 
 @Composable
 fun ProductListScreen(
     state: ProductsState,
-    onEvent: (ProductEvents) -> Unit
+    onEvent: (ProductEvents) -> Unit,
+    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(PidkovaTheme.colors.background),
-        contentAlignment = Alignment.Center
+    ScreenContainer(
+        snackBar = { SnackbarHost(snackbarHostState) }
     ) {
         if (state.isLoading) {
             CircularProgressIndicator()
         } else {
-            Column(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                state.products.forEach { product ->
-                    Text(product.name)
-                }
-            }
+            ProductsGrid(
+                products = state.products,
+                onItemClick = {}
+            )
         }
     }
 }
@@ -82,7 +82,7 @@ fun ProductListScreenPreview() {
     PidkovaTheme {
         ProductListScreen(
             state = ProductsState.initial(),
-            onEvent = {}
+            onEvent = {},
         )
     }
 }

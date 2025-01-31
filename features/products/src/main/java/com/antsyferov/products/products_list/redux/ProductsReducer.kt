@@ -12,7 +12,8 @@ class ProductsReducer: Reducer<ProductsState, ProductEvents, ProductEffects> {
                 previousState to ProductEffects.NavigateToProductDetails(event.id)
             }
             is ProductEvents.ProductsLoaded -> {
-                previousState.copy(isLoading = false, products = event.products) to null
+                //TODO handle result
+                previousState.copy(isLoading = false, products = event.products) to ProductEffects.ShowError
             }
         }
     }

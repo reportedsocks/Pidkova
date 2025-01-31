@@ -16,7 +16,7 @@ val Green40 = Green.copy(alpha = 0.4f)
 
 val Pink = Color(0xFFF8C0C8)
 val Pink80 = Pink.copy(alpha = 0.8f)
-val Pink40 = Pink.copy(alpha = 0.4f)
+val PinkVariant = Color(0xFFFC5B76)
 
 val White = Color(0xFFECFFF8)
 val White80 = White.copy(alpha = 0.8f)

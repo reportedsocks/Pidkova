@@ -16,7 +16,7 @@ data class PidkovaColors(
     val textPrimary: Color = Black,
     val textSecondary: Color = Black40,
     val icon: Color = Green,
-    val border: Color = Pink40,
+    val border: Color = PinkVariant,
     val buttonBackground: Color = Green,
     val buttonBackgroundPressed: Color = Green80,
     val buttonText: Color = White,

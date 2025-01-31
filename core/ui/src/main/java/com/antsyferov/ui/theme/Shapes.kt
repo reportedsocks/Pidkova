@@ -9,9 +9,9 @@ import androidx.compose.ui.unit.dp
 val LocalPidkovaShapes = staticCompositionLocalOf { PidkovaShapes() }
 
 data class PidkovaShapes(
-    val cardShape: CornerBasedShape = RoundedCornerShape(16.dp),
+    val cardShape: CornerBasedShape = CutCornerShape(topEnd = 14.dp),
     val buttonShape: CornerBasedShape = CutCornerShape(topEnd = 10.dp),
     val dialogShape: CornerBasedShape = RoundedCornerShape(20.dp),
     val inputFieldShape: CornerBasedShape = CutCornerShape(topEnd = 10.dp),
-    val chipShape: CornerBasedShape = RoundedCornerShape(24.dp)
+    val chipShape: CornerBasedShape = CutCornerShape(bottomStart = 6.dp)
 )

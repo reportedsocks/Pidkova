@@ -8,7 +8,7 @@ class LoadProductsUseCase() {
 
     operator fun invoke(): List<Product> {
         return buildList {
-            for (i in 0..10) {
+            for (i in 1..50) {
                 add(Product(
                     id = i.toLong(),
                     name = "Product $i",
