@@ -4,8 +4,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core:domain"))
-
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.logging)

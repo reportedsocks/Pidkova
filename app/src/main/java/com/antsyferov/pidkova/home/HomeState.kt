@@ -6,7 +6,7 @@ import com.antsyferov.ui.redux.Reducer
 
 @Immutable
 data class HomeState(
-    val products: List<Product>,
+    val products: List<com.antsyferov.network.models.Product>,
     val isLoadingProducts: Boolean
 ): Reducer.ViewState {
     companion object {

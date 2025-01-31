@@ -7,5 +7,5 @@ import com.antsyferov.ui.redux.Reducer
 @Immutable
 sealed class HomeEvents : Reducer.ViewEvent {
     data object LoadProducts: HomeEvents()
-    data class ProductsLoaded(val products: List<Product>): HomeEvents()
+    data class ProductsLoaded(val products: List<com.antsyferov.network.models.Product>): HomeEvents()
 }

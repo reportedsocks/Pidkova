@@ -56,7 +56,9 @@ dependencies {
     implementation(project(":core:database"))
     implementation(project(":core:network"))
     implementation(project(":core:ui"))
+    implementation(project(":core:domain"))
     implementation(project(":domain"))
+    implementation(project(":network"))
 
     implementation(project(":features:main"))
     implementation(project(":features:home"))
