@@ -59,6 +59,7 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":domain"))
     implementation(project(":network"))
+    implementation(project(":repository"))
 
     implementation(project(":features:main"))
     implementation(project(":features:home"))
@@ -74,6 +75,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test)
     debugImplementation(libs.androidx.compose.ui.tooling)

@@ -1,7 +1,5 @@
 package com.antsyferov.network
 
-import com.antsyferov.network.models.Message
-import com.antsyferov.network.models.Product
 import com.antsyferov.network.models.Profile
 import com.antsyferov.network.models.Session
 import io.ktor.client.HttpClient
@@ -20,16 +18,17 @@ import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 
-@Single
+
+//@Single
 class RemoteApiImpl(
-    @Named("authorised") val authorisedClient: HttpClient,
-    @Named("unauthorised") val unauthorisedClient: HttpClient,
+   // @Named("authorised") val authorisedClient: HttpClient,
+   //@Named("unauthorised") val unauthorisedClient: HttpClient,
     private val storage: InMemoryStorage
 ) {
 
     private var socket: DefaultClientWebSocketSession? = null
 
-    suspend fun getProducts(): List<Product> {
+    /*suspend fun getProducts(): List<Product> {
         return withContext(Dispatchers.IO) {
             val products = authorisedClient.get("products").body<List<Product>>()
             products
@@ -49,15 +48,15 @@ class RemoteApiImpl(
             val session = unauthorisedClient.get("auth").body<Session>()
             storage.setSession(session)
         }
-    }
+    }*/
 
     suspend fun openSocket() {
         withContext(Dispatchers.IO) {
-            socket = authorisedClient.webSocketSession(
+            /*socket = authorisedClient.webSocketSession(
                 host = "10.0.2.2",
                 port = 3000,
                 path = "socket"
-            )
+            )*/
 
             launch {
                 socket?.let {
@@ -86,7 +85,7 @@ class RemoteApiImpl(
 
     suspend fun sendMessage() {
         withContext(Dispatchers.IO) {
-            socket?.sendSerialized(Message())
+            //socket?.sendSerialized(Message())
         }
     }
 

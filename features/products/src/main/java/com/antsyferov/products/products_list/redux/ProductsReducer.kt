@@ -1,5 +1,7 @@
 package com.antsyferov.products.products_list.redux
 
+import com.antsyferov.domain.Result
+import com.antsyferov.products.models.mappers.toUi
 import com.antsyferov.ui.redux.Reducer
 
 class ProductsReducer: Reducer<ProductsState, ProductEvents, ProductEffects> {
@@ -8,12 +10,24 @@ class ProductsReducer: Reducer<ProductsState, ProductEvents, ProductEffects> {
         event: ProductEvents,
     ): Pair<ProductsState, ProductEffects?> {
         return when(event) {
+
             is ProductEvents.ProductClicked -> {
                 previousState to ProductEffects.NavigateToProductDetails(event.id)
             }
+
             is ProductEvents.ProductsLoaded -> {
-                //TODO handle result
-                previousState.copy(isLoading = false, products = event.products) to ProductEffects.ShowError
+                when (event.result) {
+                    is Result.Success -> {
+                        previousState.copy(
+                            isLoading = false,
+                            products = event.result.data.map { it.toUi() }
+                        ) to null
+                    }
+                    is Result.Error -> {
+                        previousState to ProductEffects.ShowError
+                    }
+                }
+
             }
         }
     }

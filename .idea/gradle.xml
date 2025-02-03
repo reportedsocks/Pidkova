@@ -40,6 +40,7 @@
             <option value="$PROJECT_DIR$/features/products" />
             <option value="$PROJECT_DIR$/features/profile" />
             <option value="$PROJECT_DIR$/network" />
+            <option value="$PROJECT_DIR$/repository" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

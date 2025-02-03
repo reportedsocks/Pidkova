@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Product (
+data class ProductDto (
     @SerialName("id")
     val id: Long? = null,
     @SerialName("name")
@@ -17,4 +17,6 @@ data class Product (
     val stock: Int? = 0,
     @SerialName("rating")
     val rating: Float? = 0f,
+    @SerialName("description")
+    val description: String? = "",
 )

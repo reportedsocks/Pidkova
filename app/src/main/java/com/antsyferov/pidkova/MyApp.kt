@@ -4,6 +4,7 @@ import android.app.Application
 import com.antsyferov.domain.DomainModule
 import com.antsyferov.network.NetworkModule
 import com.antsyferov.products.ProductsModule
+import com.antsyferov.repository.repoModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
@@ -17,7 +18,12 @@ class MyApp: Application() {
         startKoin {
             androidLogger()
             androidContext(this@MyApp)
-            modules(appModule, AppModule().module, NetworkModule().module, DomainModule().module, ProductsModule().module)
+            modules(
+                repoModule,
+                NetworkModule().module,
+                DomainModule().module,
+                ProductsModule().module
+            )
         }
     }
 
