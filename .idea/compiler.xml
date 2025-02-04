@@ -5,6 +5,7 @@
       <module name="build-logic.convention" target="17" />
       <module name="build-logic.convention.main" target="17" />
       <module name="build-logic.convention.test" target="17" />
+      <module name="Pidkova.core.database" target="21" />
       <module name="Pidkova.features.first_feature" target="21" />
       <module name="Pidkova.features.oboarding" target="21" />
     </bytecodeTargetLevel>

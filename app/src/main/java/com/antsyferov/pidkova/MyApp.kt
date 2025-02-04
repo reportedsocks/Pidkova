@@ -1,6 +1,7 @@
 package com.antsyferov.pidkova
 
 import android.app.Application
+import com.antsyferov.database.DatabaseModule
 import com.antsyferov.domain.DomainModule
 import com.antsyferov.network.NetworkModule
 import com.antsyferov.products.ProductsModule
@@ -21,6 +22,7 @@ class MyApp: Application() {
             modules(
                 repoModule,
                 NetworkModule().module,
+                DatabaseModule().module,
                 DomainModule().module,
                 ProductsModule().module
             )

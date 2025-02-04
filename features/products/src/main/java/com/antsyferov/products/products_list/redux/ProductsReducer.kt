@@ -2,6 +2,7 @@ package com.antsyferov.products.products_list.redux
 
 import com.antsyferov.domain.Result
 import com.antsyferov.products.models.mappers.toUi
+import com.antsyferov.ui.mappers.toSnackbarText
 import com.antsyferov.ui.redux.Reducer
 
 class ProductsReducer: Reducer<ProductsState, ProductEvents, ProductEffects> {
@@ -24,7 +25,7 @@ class ProductsReducer: Reducer<ProductsState, ProductEvents, ProductEffects> {
                         ) to null
                     }
                     is Result.Error -> {
-                        previousState to ProductEffects.ShowError
+                        previousState to ProductEffects.ShowError(event.result.error.toSnackbarText())
                     }
                 }
 

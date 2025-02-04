@@ -16,16 +16,5 @@ class LoadProductsUseCase(
         return withContext(Dispatchers.IO) {
             productsRepo.getProducts()
         }
-        /*return buildList {
-            for (i in 1..50) {
-                add(Product(
-                    id = i.toLong(),
-                    name = "Product $i",
-                    brand = "Samsung",
-                    price = 10f,
-                    rating = 3.4f
-                ))
-            }
-        }*/
     }
 }

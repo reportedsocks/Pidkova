@@ -5,6 +5,6 @@ import com.antsyferov.ui.redux.Reducer
 
 @Immutable
 sealed class ProductEffects: Reducer.ViewEffect {
-    data object ShowError: ProductEffects()
+    data class ShowError(val text: String): ProductEffects()
     data class NavigateToProductDetails(val id: Long): ProductEffects()
 }

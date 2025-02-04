@@ -37,7 +37,7 @@ fun ProductListRoot(
             when(it) {
                 is ProductEffects.ShowError -> {
                     snackbarState.showSnackbar(
-                        message = "Error",
+                        message = it.text,
                         duration = SnackbarDuration.Short,
                         withDismissAction = true
                     )

@@ -53,12 +53,12 @@ ksp {
 }
 
 dependencies {
-    implementation(project(":core:database"))
     implementation(project(":core:network"))
     implementation(project(":core:ui"))
     implementation(project(":core:domain"))
     implementation(project(":domain"))
     implementation(project(":network"))
+    implementation(project(":database"))
     implementation(project(":repository"))
 
     implementation(project(":features:main"))

@@ -1,6 +1,6 @@
 package com.antsyferov.network
 
-import com.antsyferov.network.datasources.RemoteProductsDataSourceImpl
+import com.antsyferov.network.datasources.KtorProductsDataSource
 import com.antsyferov.repository.interfaces.RemoteProductsDataSource
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
@@ -99,6 +99,6 @@ class NetworkModule {
     fun provideRemoteProductsDataSource(
         @Named("unauthorised") client: HttpClient
     ): RemoteProductsDataSource {
-        return RemoteProductsDataSourceImpl(client)
+        return KtorProductsDataSource(client)
     }
 }

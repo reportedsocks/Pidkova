@@ -22,7 +22,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Pidkova"
 include(":app")
-include(":core:database")
 include(":core:network")
 include(":domain")
 include(":core:ui")
@@ -36,3 +35,4 @@ include(":features:profile")
 include(":core:domain")
 include(":network")
 include(":repository")
+include(":database")
