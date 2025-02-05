@@ -3,6 +3,7 @@ package com.antsyferov.database.datasources
 import com.antsyferov.database.models.ProductEntity
 import com.antsyferov.database.models.mappers.toDomain
 import com.antsyferov.database.models.mappers.toEntity
+import com.antsyferov.database.util.safeAccess
 import com.antsyferov.domain.PidkovaException
 import com.antsyferov.domain.Result
 import com.antsyferov.domain.models.Product
@@ -17,19 +18,15 @@ class RealmProductsDataSource(
     private val realm: Realm
 ): LocalProductsDataSource {
     override suspend fun updateProducts(products: List<Product>): Result<Unit> {
-        val result = realm.write {
-            try {
+        return safeAccess {
+            realm.write {
                 products
                     .map { it.toEntity() }
                     .forEach {
                         copyToRealm(it, UpdatePolicy.ALL)
                     }
-                Result.Success(Unit)
-            } catch (e: Exception) {
-                Result.Error(PidkovaException.UNKNOWN)
             }
         }
-        return result
     }
 
     override fun getProducts(): Flow<List<Product>> {
