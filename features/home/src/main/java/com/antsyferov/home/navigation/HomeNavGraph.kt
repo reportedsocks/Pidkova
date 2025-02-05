@@ -16,8 +16,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -51,13 +53,21 @@ fun Tabs() {
             startDestination = Products,
             modifier = Modifier.weight(1f)
         ) {
-
-            productsGraph<Products>(tabsNavController)
+            productsGraph<Products>(
+                navController = tabsNavController,
+                onNavToCart = {
+                    tabsNavController.navigate(
+                        route = Cart,
+                        navOptions = navOptions {
+                            changeTabNavOptions(navController = tabsNavController)
+                        }
+                    )
+                }
+            )
 
             cartGraph<Cart>(tabsNavController)
 
             profileGraph<Profile>(tabsNavController)
-
         }
 
         val navBackStackEntry by tabsNavController.currentBackStackEntryAsState()
@@ -73,7 +83,7 @@ fun Tabs() {
         NavigationBar {
             tabs.forEach { tab ->
                 NavigationBarItem(
-                    selected = currentDestination?.route == tab::class.qualifiedName,
+                    selected = isCurrentTabClicked(currentDestination, tab),
                     icon = {
                         Icon(
                             imageVector = icons[tab] ?: Icons.Default.Error,
@@ -84,11 +94,11 @@ fun Tabs() {
                         tabsNavController.navigate(
                             route = tab,
                             navOptions = navOptions {
-                                popUpTo(tabsNavController.graph.findStartDestination().id) {
-                                    saveState = true
+                                if (isCurrentTabClicked(currentDestination, tab)) {
+                                    popCurrentTabNavOptions(tab)
+                                } else {
+                                    changeTabNavOptions(tabsNavController)
                                 }
-                                launchSingleTop = true
-                                restoreState = true
                             }
                         )
                     },
@@ -97,4 +107,29 @@ fun Tabs() {
 
         }
     }
+}
+
+fun NavOptionsBuilder.changeTabNavOptions(
+    navController: NavController
+) {
+    popUpTo(navController.graph.findStartDestination().id) {
+        saveState = true
+    }
+    launchSingleTop = true
+    restoreState = true
+}
+
+fun NavOptionsBuilder.popCurrentTabNavOptions(
+    tab: Any
+) {
+    popUpTo(tab) {
+        inclusive = true
+    }
+}
+
+fun isCurrentTabClicked(
+    currentDestination: NavDestination?,
+    clickedTab: Any
+): Boolean {
+    return currentDestination?.parent?.route == clickedTab::class.qualifiedName
 }

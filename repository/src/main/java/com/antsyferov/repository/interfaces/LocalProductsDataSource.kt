@@ -10,4 +10,6 @@ interface LocalProductsDataSource {
 
     fun getProducts(): Flow<List<Product>>
 
+    suspend fun getProduct(id: Long): Result<Product>
+
 }

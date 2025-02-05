@@ -2,6 +2,7 @@ package com.antsyferov.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBars
@@ -18,7 +19,7 @@ fun ScreenContainer(
     modifier: Modifier = Modifier,
     statusBarColor: Color = Pink,
     snackBar: @Composable () -> Unit = {},
-    content: @Composable () -> Unit,
+    content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
         contentAlignment = Alignment.Center,

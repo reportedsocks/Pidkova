@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -19,6 +20,7 @@ import com.antsyferov.ui.components.SnackBar
 import com.antsyferov.ui.components.SnackbarHost
 import com.antsyferov.ui.rememberFlowWithLifecycle
 import com.antsyferov.ui.theme.PidkovaTheme
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -30,17 +32,20 @@ fun ProductListRoot(
     val effects = rememberFlowWithLifecycle(viewModel.effect)
 
     val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
     val snackbarState = remember { SnackbarHostState() }
 
     LaunchedEffect(effects) {
         effects.collect {
             when(it) {
                 is ProductEffects.ShowError -> {
-                    snackbarState.showSnackbar(
-                        message = it.text,
-                        duration = SnackbarDuration.Short,
-                        withDismissAction = true
-                    )
+                    coroutineScope.launch {
+                        snackbarState.showSnackbar(
+                            message = it.text,
+                            duration = SnackbarDuration.Short,
+                            withDismissAction = true
+                        )
+                    }
                 }
                 is ProductEffects.NavigateToProductDetails -> {
                     onNavToProductDetails(it.id)
@@ -70,7 +75,7 @@ fun ProductListScreen(
         } else {
             ProductsGrid(
                 products = state.products,
-                onItemClick = {}
+                onItemClick = { onEvent.invoke(ProductEvents.ProductClicked(it.id)) }
             )
         }
     }

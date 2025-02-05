@@ -110,7 +110,8 @@ fun ProductItemPreview() {
                 name = "Product 1",
                 brand = "Samsung",
                 price = 13.3f,
-                rating = 2.5f
+                rating = 2.5f,
+                "Lorem ipsum bla bla bla"
             ),
             onClick = {}
         )

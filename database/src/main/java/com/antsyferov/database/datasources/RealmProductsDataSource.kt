@@ -41,4 +41,16 @@ class RealmProductsDataSource(
                     .map { it.toDomain() }
             }
     }
+
+    override suspend fun getProduct(id: Long): Result<Product> {
+        val productEntity = realm
+            .query<ProductEntity>("id == $0", id)
+            .first()
+            .find()
+        return if (productEntity != null) {
+            Result.Success(productEntity.toDomain())
+        } else {
+            Result.Error(PidkovaException.UNKNOWN)
+        }
+    }
 }

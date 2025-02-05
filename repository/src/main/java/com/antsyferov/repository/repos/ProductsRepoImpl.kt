@@ -18,7 +18,7 @@ class ProductsRepoImpl(
     private val localProductsDataSource: LocalProductsDataSource
 ): ProductsRepo {
 
-    override suspend fun getProducts(): Flow<Result<List<Product>>> {
+    override fun getProducts(): Flow<Result<List<Product>>> {
         val localFLow = localProductsDataSource
             .getProducts()
             .map { Result.Success(it) }
@@ -32,6 +32,10 @@ class ProductsRepoImpl(
         }.filter { it is Result.Error }
 
         return merge(localFLow, remoteFlow)
+    }
+
+    override suspend fun getProduct(id: Long): Result<Product> {
+        return localProductsDataSource.getProduct(id)
     }
 
 }

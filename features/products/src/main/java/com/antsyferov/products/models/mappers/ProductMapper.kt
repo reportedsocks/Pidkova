@@ -9,6 +9,7 @@ fun Product.toUi(): ProductUi {
         name = name,
         brand = brand,
         price = price,
-        rating = rating
+        rating = rating,
+        description = description
     )
 }
