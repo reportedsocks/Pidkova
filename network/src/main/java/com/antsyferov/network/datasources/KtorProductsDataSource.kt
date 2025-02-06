@@ -16,7 +16,7 @@ class KtorProductsDataSource(
     private val client: HttpClient
 ): RemoteProductsDataSource {
     override suspend fun getProducts(): Result<List<Product>> {
-        val simulateError = true
+        val simulateError = false
         if (simulateError) {
             delay(2000)
             return Result.Error(PidkovaException.SERVER)

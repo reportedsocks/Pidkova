@@ -2,18 +2,21 @@ package com.antsyferov.home.navigation
 
 import kotlinx.serialization.Serializable
 
-//root
 @Serializable
-data object Tabs
+data class HomeTabs(
+    val destination: String? = null,
+    val productId: Long? = null
+)
 
-//tab options
-@Serializable
-data object Products
-
-@Serializable
-data object Cart
+interface Tab
 
 @Serializable
-data object Profile
+data object Products: Tab
+
+@Serializable
+data object Cart: Tab
+
+@Serializable
+data object Profile: Tab
 
 

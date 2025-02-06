@@ -1,6 +1,8 @@
 package com.antsyferov.ui.redux
 
-interface Reducer<State: Reducer.ViewState, Event: Reducer.ViewEvent, Effect: Reducer.ViewEffect> {
+import kotlinx.coroutines.CoroutineScope
+
+abstract class Reducer<State: Reducer.ViewState, Event: Reducer.ViewEvent, Effect: Reducer.ViewEffect> {
 
     interface ViewState
 
@@ -8,5 +10,7 @@ interface Reducer<State: Reducer.ViewState, Event: Reducer.ViewEvent, Effect: Re
 
     interface ViewEffect
 
-    fun reduce(previousState: State, event: Event): Pair<State, Effect?>
+    abstract fun reduce(previousState: State, event: Event): Pair<State, Effect?>
+
+    lateinit var scope: CoroutineScope
 }

@@ -7,7 +7,7 @@ import com.antsyferov.ui.redux.Reducer
 
 @Immutable
 sealed class ProductDetailsEvents: Reducer.ViewEvent {
-    data object AddCartClicked: ProductDetailsEvents()
+    data class AddCartClicked(val productId: Long): ProductDetailsEvents()
     data object GoToCartCLicked: ProductDetailsEvents()
     data object NavigationUpClicked: ProductDetailsEvents()
     data class ProductDetailsLoaded(val result: Result<ProductUi>): ProductDetailsEvents()

@@ -3,6 +3,7 @@ package com.antsyferov.products.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import androidx.navigation.navDeepLink
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import com.antsyferov.products.product_details.ProductDetailsRoot
@@ -19,7 +20,9 @@ inline fun <reified T: Any> NavGraphBuilder.productsGraph(
             )
         }
 
-        composable<ProductDetails> { navBackStackEntry ->
+        composable<ProductDetails>(
+            deepLinks = listOf(navDeepLink<ProductDetails>(basePath = "app://pidkova/details/"))
+        ) { navBackStackEntry ->
             val productId = navBackStackEntry.toRoute<ProductDetails>().productId
             ProductDetailsRoot(
                 productId = productId,

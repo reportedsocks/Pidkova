@@ -5,7 +5,7 @@ import com.antsyferov.products.models.mappers.toUi
 import com.antsyferov.ui.mappers.toSnackbarText
 import com.antsyferov.ui.redux.Reducer
 
-class ProductsReducer: Reducer<ProductsState, ProductEvents, ProductEffects> {
+class ProductsReducer: Reducer<ProductsState, ProductEvents, ProductEffects>() {
     override fun reduce(
         previousState: ProductsState,
         event: ProductEvents,

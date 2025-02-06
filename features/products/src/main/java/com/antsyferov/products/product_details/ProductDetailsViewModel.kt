@@ -2,6 +2,7 @@ package com.antsyferov.products.product_details
 
 import androidx.lifecycle.viewModelScope
 import com.antsyferov.domain.map
+import com.antsyferov.domain.use_cases.AddProductToCartUseCase
 import com.antsyferov.domain.use_cases.GetProductUseCase
 import com.antsyferov.products.models.mappers.toUi
 import com.antsyferov.products.product_details.redux.ProductDetailsEffects
@@ -14,19 +15,15 @@ import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
 class ProductDetailsViewModel(
-    private val getProductUseCase: GetProductUseCase
+    private val getProductUseCase: GetProductUseCase,
+    private val addProductToCartUseCase: AddProductToCartUseCase
 ): BaseViewModel<ProductDetailsState, ProductDetailsEvents, ProductDetailsEffects> (
     initialState = ProductDetailsState.initial(),
-    reducer = ProductDetailsReducer()
+    reducer = ProductDetailsReducer(addProductToCartUseCase)
 ){
+
     override fun consumeEffect(effect: ProductDetailsEffects): ProductDetailsEffects? {
-        return when(effect) {
-            is ProductDetailsEffects.AddProductToCart -> {
-                //TODO implement
-                null
-            }
-            else -> effect
-        }
+        return effect
     }
 
     fun loadProduct(id: Long) {

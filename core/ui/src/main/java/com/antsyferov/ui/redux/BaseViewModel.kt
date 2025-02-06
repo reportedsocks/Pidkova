@@ -1,6 +1,7 @@
 package com.antsyferov.ui.redux
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,8 +13,12 @@ import kotlinx.coroutines.flow.receiveAsFlow
 
 abstract class BaseViewModel<State: Reducer.ViewState, Event: Reducer.ViewEvent, Effect: Reducer.ViewEffect> (
     private val initialState: State,
-    private val reducer: Reducer<State, Event, Effect>
+    protected val reducer: Reducer<State, Event, Effect>
 ) : ViewModel() {
+
+    init {
+        reducer.scope = viewModelScope
+    }
 
     private val _state: MutableStateFlow<State> = MutableStateFlow(initialState)
     val state: StateFlow<State> = _state.asStateFlow()

@@ -1,6 +1,7 @@
 package com.antsyferov.pidkova
 
 import android.app.Application
+import com.antsyferov.cart.CartModule
 import com.antsyferov.database.DatabaseModule
 import com.antsyferov.domain.DomainModule
 import com.antsyferov.network.NetworkModule
@@ -24,7 +25,8 @@ class MyApp: Application() {
                 NetworkModule().module,
                 DatabaseModule().module,
                 DomainModule().module,
-                ProductsModule().module
+                ProductsModule().module,
+                CartModule().module
             )
         }
     }

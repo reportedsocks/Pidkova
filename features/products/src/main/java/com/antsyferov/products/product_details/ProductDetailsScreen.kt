@@ -126,7 +126,7 @@ fun ProductDetailsScreen(
             ) {
                 Button(
                     text = "Add to Cart",
-                    onClick = { onEvent(ProductDetailsEvents.AddCartClicked) },
+                    onClick = { onEvent(ProductDetailsEvents.AddCartClicked(state.product?.id ?: 0)) },
                     modifier = Modifier.weight(1f)
                 )
                 Button(
