@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_app_icon_foreground">
+
+    <target
+        android:name="top_strokes"
+        android:animation="@animator/slide_down" />
+
+    <target
+        android:name="bottom_strokes"
+        android:animation="@animator/slide_up" />
+
+    <target
+        android:name="right_strokes"
+        android:animation="@animator/slide_left" />
+
+    <target
+        android:name="left_strokes"
+        android:animation="@animator/slide_right" />
+
+</animated-vector>
