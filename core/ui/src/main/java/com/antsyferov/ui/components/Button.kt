@@ -2,6 +2,7 @@ package com.antsyferov.ui.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.PressGestureScope
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,10 +15,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,7 +33,8 @@ import kotlin.coroutines.cancellation.CancellationException
 fun Button(
     text: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
 ) {
 
     var touchedDown by remember { mutableStateOf(false) }
@@ -40,7 +45,13 @@ fun Button(
     )
 
     val containerColor by animateColorAsState(
-        if (touchedDown) PidkovaTheme.colors.buttonBackgroundPressed else PidkovaTheme.colors.buttonBackground,
+        if(!enabled) {
+            Color.Gray
+        } else if (touchedDown) {
+            PidkovaTheme.colors.buttonBackgroundPressed
+        } else {
+            PidkovaTheme.colors.buttonBackground
+        },
         label = ""
     )
 
@@ -49,19 +60,25 @@ fun Button(
         label = ""
     )
 
+    val currentOnPress: suspend PressGestureScope.(Offset) -> Unit = remember(enabled) {
+        {
+            if (enabled) {
+                touchedDown = true
+                val released = try {
+                    tryAwaitRelease()
+                } catch (c: CancellationException) { false }
+                if (released) { onClick() }
+                touchedDown = false
+            }
+        }
+    }
+
     Box(
         modifier = modifier
             .height(40.dp)
             .pointerInput(Unit) {
                 detectTapGestures(
-                    onPress = {
-                        touchedDown = true
-                        val released = try {
-                            tryAwaitRelease()
-                        } catch (c: CancellationException) { false }
-                        if (released) { onClick() }
-                        touchedDown = false
-                    }
+                    onPress = currentOnPress
                 )
             }
             .background(borderColor)

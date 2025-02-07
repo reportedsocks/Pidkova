@@ -30,7 +30,17 @@ fun MainNavHost(
             }
         )
 
-        authGraph<Auth>(navController)
+        authGraph<Auth>(
+            navController = navController,
+            onCompletedAuth = { navController.navigate(
+                route = Home,
+                navOptions = navOptions {
+                    popUpTo<Auth> {
+                        inclusive = true
+                    }
+                }
+            )}
+        )
 
         onboardingGraph<Onboarding>(navController)
     }

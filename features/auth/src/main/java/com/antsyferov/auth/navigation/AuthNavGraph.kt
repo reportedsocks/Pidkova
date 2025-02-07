@@ -7,12 +7,13 @@ import androidx.navigation.navigation
 import com.antsyferov.auth.sign_in.SignInScreenRoot
 
 inline fun <reified T: Any> NavGraphBuilder.authGraph(
-    navController: NavController
+    navController: NavController,
+    noinline onCompletedAuth: () -> Unit,
 ) {
     navigation<T>(startDestination = SignIn) {
         composable<SignIn>{
             SignInScreenRoot(
-                onCompletedAuth = {}
+                onCompletedAuth = onCompletedAuth
             )
         }
 

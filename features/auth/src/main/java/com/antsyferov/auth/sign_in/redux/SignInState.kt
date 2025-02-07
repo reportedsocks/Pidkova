@@ -9,7 +9,6 @@ data class SignInState(
     val password: String,
     val isLoginCorrect: Boolean,
     val isPasswordCorrect: Boolean,
-    val attemptedSignIn: Boolean,
     val isLoading: Boolean
 ): Reducer.ViewState {
     companion object {
@@ -20,7 +19,6 @@ data class SignInState(
                 isLoginCorrect = false,
                 isPasswordCorrect = false,
                 isLoading = false,
-                attemptedSignIn = false
             )
         }
     }

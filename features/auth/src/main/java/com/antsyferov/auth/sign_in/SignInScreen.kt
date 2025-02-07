@@ -1,5 +1,12 @@
 package com.antsyferov.auth.sign_in
 
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.union
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -7,15 +14,20 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.antsyferov.auth.sign_in.composables.SignInForm
 import com.antsyferov.auth.sign_in.redux.SignInEffects
 import com.antsyferov.auth.sign_in.redux.SignInEvents
 import com.antsyferov.auth.sign_in.redux.SignInState
+import com.antsyferov.ui.components.Button
 import com.antsyferov.ui.components.ScreenContainer
 import com.antsyferov.ui.components.SnackbarHost
-import com.antsyferov.ui.components.Text
 import com.antsyferov.ui.rememberFlowWithLifecycle
+import com.antsyferov.ui.theme.PidkovaTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -46,6 +58,7 @@ fun SignInScreenRoot(
                 is SignInEffects.LoginSuccessful -> {
                     onCompletedAuth()
                 }
+                else -> {}
             }
         }
     }
@@ -64,8 +77,38 @@ fun SignInScreen(
     snackbarHostState: SnackbarHostState
 ) {
     ScreenContainer(
-        snackBar = { SnackbarHost(snackbarHostState) }
+        snackBar = { SnackbarHost(snackbarHostState) },
+        modifier = Modifier
+            .windowInsetsPadding(WindowInsets.ime.union(WindowInsets.navigationBars))
     ) {
-        Text("Sign in")
+        SignInForm(
+            state = state,
+            onEvent = onEvent
+        )
+
+        if (state.isLoading) {
+            CircularProgressIndicator()
+        }
+
+        Button(
+            text = "Sign in",
+            onClick = { onEvent(SignInEvents.SignInClicked) },
+            enabled = !state.isLoading && state.isPasswordCorrect && state.isLoginCorrect,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(PidkovaTheme.dimensions.paddingLarge)
+        )
+    }
+}
+
+@Composable
+@Preview
+fun SignInScreenPreview() {
+    PidkovaTheme {
+        SignInScreen(
+            state = SignInState.initial(),
+            onEvent = {},
+            snackbarHostState = remember { SnackbarHostState() }
+        )
     }
 }
