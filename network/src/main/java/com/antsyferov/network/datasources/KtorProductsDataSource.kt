@@ -11,8 +11,10 @@ import com.antsyferov.repository.interfaces.RemoteProductsDataSource
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import kotlinx.coroutines.delay
+import org.koin.core.annotation.Named
 
 class KtorProductsDataSource(
+    @Named("unauthorised")
     private val client: HttpClient
 ): RemoteProductsDataSource {
     override suspend fun getProducts(): Result<List<Product>> {

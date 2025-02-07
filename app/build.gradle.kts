@@ -60,6 +60,7 @@ dependencies {
     implementation(project(":network"))
     implementation(project(":database"))
     implementation(project(":repository"))
+    implementation(project(":datastore"))
 
     implementation(project(":features:main"))
     implementation(project(":features:home"))

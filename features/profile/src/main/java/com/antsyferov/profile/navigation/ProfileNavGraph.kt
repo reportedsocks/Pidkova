@@ -8,10 +8,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.antsyferov.ui.components.Button
 import com.antsyferov.ui.components.Text
 
 inline fun <reified T: Any> NavGraphBuilder.profileGraph(
-    navController: NavController
+    navController: NavController,
+    noinline onNavToAuth: () -> Unit
 ) {
     navigation<T>(startDestination = AccountInfo) {
         composable<AccountInfo> {
@@ -19,7 +21,11 @@ inline fun <reified T: Any> NavGraphBuilder.profileGraph(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Text("Profile")
+                //Text("Profile")
+                Button(
+                    text = "auth",
+                    onClick = onNavToAuth
+                )
             }
         }
     }

@@ -4,9 +4,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Session(
+data class SessionDto(
     @SerialName("access_token")
-    val accessToken: Int = 0,
+    val accessToken: String ="",
     @SerialName("refresh_token")
-    val refreshToken: Int = 0,
+    val refreshToken: String = "",
 )

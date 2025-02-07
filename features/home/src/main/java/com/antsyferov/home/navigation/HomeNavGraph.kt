@@ -38,7 +38,8 @@ import com.antsyferov.profile.navigation.profileGraph
 val tabs = listOf(Products, Cart, Profile)
 
 inline fun <reified T: Any> NavGraphBuilder.homeGraph(
-    navController: NavController
+    navController: NavController,
+    noinline onNavToAuth: () -> Unit
 ) {
     navigation<T>(startDestination = HomeTabs()) {
         composable<HomeTabs>(
@@ -47,7 +48,8 @@ inline fun <reified T: Any> NavGraphBuilder.homeGraph(
             val route = it.toRoute<HomeTabs>()
             Tabs(
                 destination = route.destination,
-                productId = route.productId
+                productId = route.productId,
+                onNavToAuth = onNavToAuth
             )
         }
     }
@@ -56,7 +58,8 @@ inline fun <reified T: Any> NavGraphBuilder.homeGraph(
 @Composable
 fun Tabs(
     destination: String?,
-    productId: Long?
+    productId: Long?,
+    onNavToAuth: () -> Unit
 ) {
     val tabsNavController = rememberNavController()
 
@@ -99,7 +102,10 @@ fun Tabs(
                 }
             )
 
-            profileGraph<Profile>(tabsNavController)
+            profileGraph<Profile>(
+                navController = tabsNavController,
+                onNavToAuth = onNavToAuth
+            )
         }
 
         val navBackStackEntry by tabsNavController.currentBackStackEntryAsState()

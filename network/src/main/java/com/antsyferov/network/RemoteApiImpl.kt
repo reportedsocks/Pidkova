@@ -1,7 +1,6 @@
 package com.antsyferov.network
 
 import com.antsyferov.network.models.Profile
-import com.antsyferov.network.models.Session
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.websocket.DefaultClientWebSocketSession
@@ -23,7 +22,7 @@ import org.koin.core.annotation.Single
 class RemoteApiImpl(
    // @Named("authorised") val authorisedClient: HttpClient,
    //@Named("unauthorised") val unauthorisedClient: HttpClient,
-    private val storage: InMemoryStorage
+    //private val storage: InMemoryStorage
 ) {
 
     private var socket: DefaultClientWebSocketSession? = null
