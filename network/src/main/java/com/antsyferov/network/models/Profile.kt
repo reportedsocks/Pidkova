@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Profile(
+data class ProfileDto(
     @SerialName("id")
     val id: Long? = null,
     @SerialName("name")

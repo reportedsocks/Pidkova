@@ -8,6 +8,7 @@ import com.antsyferov.datastore.datastoreModule
 import com.antsyferov.domain.DomainModule
 import com.antsyferov.network.NetworkModule
 import com.antsyferov.products.ProductsModule
+import com.antsyferov.profile.ProfileModule
 import com.antsyferov.repository.repoModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -25,12 +26,14 @@ class MyApp: Application() {
             modules(
                 repoModule,
                 datastoreModule,
+                AppModule().module,
                 NetworkModule().module,
                 DatabaseModule().module,
                 DomainModule().module,
                 ProductsModule().module,
                 CartModule().module,
-                AuthModule().module
+                AuthModule().module,
+                ProfileModule().module
             )
         }
     }

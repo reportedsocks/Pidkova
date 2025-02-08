@@ -1,8 +1,8 @@
 package com.antsyferov.network
 
+import com.antsyferov.domain.Result
 import com.antsyferov.domain.interfaces.Datastore
-import com.antsyferov.network.datasources.KtorProductsDataSource
-import com.antsyferov.repository.interfaces.RemoteProductsDataSource
+import com.antsyferov.network.models.SessionDto
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.DefaultRequest
@@ -12,27 +12,24 @@ import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
-import io.ktor.client.plugins.websocket.WebSockets
-import io.ktor.serialization.kotlinx.KotlinxWebsocketSerializationConverter
+import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.flow.first
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.protobuf.ProtoBuf
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
-import org.koin.core.annotation.Named
+import org.koin.core.annotation.Qualifier
 import org.koin.core.annotation.Single
 
 @Module
 @ComponentScan
 class NetworkModule {
 
-    @OptIn(ExperimentalSerializationApi::class)
     @Single
-    @Named("authorised")
+    @Qualifier(Authorized::class)
     fun provideAuthorisedClient(
-        datastore: Datastore
+        datastore: Datastore,
+        constantsProvider: ConstantsProvider
     ): HttpClient {
         val client = HttpClient(CIO) {
 
@@ -48,7 +45,7 @@ class NetworkModule {
             }
 
             install(DefaultRequest) {
-                url("http://10.0.2.2:3000/")
+                url(constantsProvider.getBaseUrl())
             }
 
             install(Auth) {
@@ -62,17 +59,21 @@ class NetworkModule {
                         )
                     }
                     refreshTokens {
-                        //TODO
-                        //client.get("refresh")
-                        BearerTokens(oldTokens?.accessToken ?: "", oldTokens?.refreshToken)
+                        val result = safeCall<SessionDto> { client.get("refresh") }
+
+                        when(result) {
+                            is Result.Success -> {
+                                datastore.setAccessToken(result.data.accessToken)
+                                datastore.setRefreshToken(result.data.refreshToken)
+                                BearerTokens(result.data.accessToken, result.data.refreshToken)
+                            }
+                            is Result.Error -> {
+                                null
+                            }
+                        }
+
                     }
                 }
-            }
-
-            install(WebSockets) {
-                pingIntervalMillis = 10000
-
-                contentConverter = KotlinxWebsocketSerializationConverter(ProtoBuf)
             }
         }
 
@@ -80,8 +81,10 @@ class NetworkModule {
     }
 
     @Single
-    @Named("unauthorised")
-    fun provideUnauthorisedClient(): HttpClient {
+    @Qualifier(UnAuthorized::class)
+    fun provideUnauthorisedClient(
+        constantsProvider: ConstantsProvider
+    ): HttpClient {
         val client = HttpClient(CIO) {
 
             install(Logging) {
@@ -96,17 +99,11 @@ class NetworkModule {
             }
 
             install(DefaultRequest) {
-                url("http://10.0.2.2:3000/")
+                url(constantsProvider.getBaseUrl())
             }
         }
 
         return client
     }
 
-    @Single
-    fun provideRemoteProductsDataSource(
-        @Named("unauthorised") client: HttpClient
-    ): RemoteProductsDataSource {
-        return KtorProductsDataSource(client)
-    }
 }

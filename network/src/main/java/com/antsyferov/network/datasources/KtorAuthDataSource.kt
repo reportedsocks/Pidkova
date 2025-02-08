@@ -3,18 +3,19 @@ package com.antsyferov.network.datasources
 import com.antsyferov.domain.Result
 import com.antsyferov.domain.map
 import com.antsyferov.domain.models.Session
+import com.antsyferov.network.UnAuthorized
 import com.antsyferov.network.models.SessionDto
 import com.antsyferov.network.models.mappers.toDomain
 import com.antsyferov.network.safeCall
 import com.antsyferov.repository.interfaces.RemoteAuthDataSource
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
-import org.koin.core.annotation.Named
+import org.koin.core.annotation.Qualifier
 import org.koin.core.annotation.Single
 
 @Single
 class KtorAuthDataSource (
-    @Named("unauthorised")
+    @Qualifier(UnAuthorized::class)
     private val client: HttpClient
 ): RemoteAuthDataSource {
     override suspend fun signIn(login: String, password: String): Result<Session> {

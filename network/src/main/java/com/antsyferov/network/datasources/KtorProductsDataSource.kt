@@ -4,6 +4,7 @@ import com.antsyferov.domain.PidkovaException
 import com.antsyferov.domain.Result
 import com.antsyferov.domain.map
 import com.antsyferov.domain.models.Product
+import com.antsyferov.network.UnAuthorized
 import com.antsyferov.network.models.ProductDto
 import com.antsyferov.network.models.mappers.toDomain
 import com.antsyferov.network.safeCall
@@ -11,10 +12,12 @@ import com.antsyferov.repository.interfaces.RemoteProductsDataSource
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import kotlinx.coroutines.delay
-import org.koin.core.annotation.Named
+import org.koin.core.annotation.Qualifier
+import org.koin.core.annotation.Single
 
+@Single
 class KtorProductsDataSource(
-    @Named("unauthorised")
+    @Qualifier(UnAuthorized::class)
     private val client: HttpClient
 ): RemoteProductsDataSource {
     override suspend fun getProducts(): Result<List<Product>> {
