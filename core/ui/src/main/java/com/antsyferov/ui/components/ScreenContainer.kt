@@ -12,12 +12,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.antsyferov.ui.theme.PidkovaTheme
-import com.antsyferov.ui.theme.Pink
+import com.antsyferov.ui.theme.White
 
 @Composable
 fun ScreenContainer(
     modifier: Modifier = Modifier,
-    statusBarColor: Color = Pink,
+    statusBarColor: Color = White,
     snackBar: @Composable () -> Unit = {},
     content: @Composable BoxScope.() -> Unit,
 ) {

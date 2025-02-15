@@ -8,4 +8,5 @@ sealed class ProfileEvents: Reducer.ViewEvent {
     data class ProfileLoaded(val result: Result<Profile>): ProfileEvents()
     data class AuthChanged(val isAuthorized: Boolean): ProfileEvents()
     data object AuthClicked: ProfileEvents()
+    data object LogOutClicked: ProfileEvents()
 }

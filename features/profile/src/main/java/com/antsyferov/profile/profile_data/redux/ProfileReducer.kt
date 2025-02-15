@@ -27,6 +27,9 @@ class ProfileReducer: Reducer<ProfileState, ProfileEvents, ProfileEffects>() {
             is ProfileEvents.AuthChanged -> {
                 previousState.copy(isAuthorized = event.isAuthorized) to null
             }
+            is ProfileEvents.LogOutClicked -> {
+                previousState to ProfileEffects.LogOut
+            }
         }
     }
 }

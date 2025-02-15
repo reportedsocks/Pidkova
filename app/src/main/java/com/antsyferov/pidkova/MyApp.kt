@@ -6,6 +6,7 @@ import com.antsyferov.cart.CartModule
 import com.antsyferov.database.DatabaseModule
 import com.antsyferov.datastore.datastoreModule
 import com.antsyferov.domain.DomainModule
+import com.antsyferov.main.MainModule
 import com.antsyferov.network.NetworkModule
 import com.antsyferov.products.ProductsModule
 import com.antsyferov.profile.ProfileModule
@@ -33,7 +34,8 @@ class MyApp: Application() {
                 ProductsModule().module,
                 CartModule().module,
                 AuthModule().module,
-                ProfileModule().module
+                ProfileModule().module,
+                MainModule().module
             )
         }
     }

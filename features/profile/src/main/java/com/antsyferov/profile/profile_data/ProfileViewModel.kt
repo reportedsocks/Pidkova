@@ -28,7 +28,7 @@ class ProfileViewModel(
         datastore
             .getAccessToken()
             .onEach {
-                sendEvent(ProfileEvents.AuthChanged(it != null))
+                sendEvent(ProfileEvents.AuthChanged(!it.isNullOrEmpty()))
             }
             .flowOn(Dispatchers.IO)
             .launchIn(viewModelScope)
@@ -40,7 +40,16 @@ class ProfileViewModel(
     }
 
     override fun consumeEffect(effect: ProfileEffects): ProfileEffects? {
-        return effect
+        return when(effect) {
+            is ProfileEffects.LogOut -> {
+                viewModelScope.launch {
+                    datastore.setAccessToken("")
+                    datastore.setRefreshToken("")
+                }
+              null
+            }
+            else -> effect
+        }
     }
 
 }

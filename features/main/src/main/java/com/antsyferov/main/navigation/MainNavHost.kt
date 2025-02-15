@@ -11,7 +11,8 @@ import com.antsyferov.onboarding.navigation.onboardingGraph
 
 @Composable
 fun MainNavHost(
-    navController: NavHostController
+    navController: NavHostController,
+    onOnboardingFinished: () -> Unit
 ) {
     NavHost(
         navController = navController,
@@ -42,6 +43,18 @@ fun MainNavHost(
             )}
         )
 
-        onboardingGraph<Onboarding>(navController)
+        onboardingGraph<Onboarding>(
+            onOnboardingFinished = {
+                onOnboardingFinished()
+                navController.navigate(
+                    route = Home,
+                    navOptions = navOptions {
+                        popUpTo<Onboarding> {
+                            inclusive = true
+                        }
+                    }
+                )
+            }
+        )
     }
 }

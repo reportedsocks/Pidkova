@@ -25,3 +25,5 @@ val White40 = White.copy(alpha = 0.4f)
 val Black = Color(0xFF131313)
 val Black80 = Black.copy(0.8f)
 val Black40 = Black.copy(0.4f)
+
+val MexicanPink = Color(0xFFE60E84)

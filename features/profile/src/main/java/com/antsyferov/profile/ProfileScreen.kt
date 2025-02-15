@@ -1,7 +1,5 @@
 package com.antsyferov.profile
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
@@ -10,8 +8,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -22,7 +18,6 @@ import com.antsyferov.profile.profile_data.composables.ProfileView
 import com.antsyferov.profile.profile_data.redux.ProfileEffects
 import com.antsyferov.profile.profile_data.redux.ProfileEvents
 import com.antsyferov.profile.profile_data.redux.ProfileState
-import com.antsyferov.ui.components.Button
 import com.antsyferov.ui.components.ScreenContainer
 import com.antsyferov.ui.components.SnackbarHost
 import com.antsyferov.ui.rememberFlowWithLifecycle
@@ -57,6 +52,7 @@ fun ProfileScreenRoot(
                 is ProfileEffects.GoToAuth -> {
                     onGoToAuth()
                 }
+                else -> {}
             }
         }
     }
@@ -84,7 +80,10 @@ fun ProfileScreen(
                 CircularProgressIndicator()
             } else {
                 state.profile?.let {
-                    ProfileView(profile = it)
+                    ProfileView(
+                        profile = it,
+                        onEvent = onEvent
+                    )
                 }
             }
         } else {

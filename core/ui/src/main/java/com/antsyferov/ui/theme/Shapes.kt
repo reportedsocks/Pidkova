@@ -13,5 +13,7 @@ data class PidkovaShapes(
     val buttonShape: CornerBasedShape = CutCornerShape(topEnd = 10.dp),
     val dialogShape: CornerBasedShape = RoundedCornerShape(20.dp),
     val inputFieldShape: CornerBasedShape = CutCornerShape(topEnd = 10.dp),
-    val chipShape: CornerBasedShape = CutCornerShape(bottomStart = 6.dp)
+    val chipShape: CornerBasedShape = CutCornerShape(bottomStart = 6.dp),
+    val onboardingCardShape: CornerBasedShape = CutCornerShape(topEnd = 45.dp),
+    val navBarShape: CornerBasedShape = CutCornerShape(topEnd = 16.dp, topStart = 16.dp)
 )

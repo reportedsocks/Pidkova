@@ -3,6 +3,7 @@ package com.antsyferov.home.navigation
 import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Error
@@ -12,11 +13,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -34,6 +38,8 @@ import com.antsyferov.cart.navigation.cartGraph
 import com.antsyferov.products.navigation.ProductDetails
 import com.antsyferov.products.navigation.productsGraph
 import com.antsyferov.profile.navigation.profileGraph
+import com.antsyferov.ui.theme.PidkovaTheme
+import com.antsyferov.ui.theme.White
 
 val tabs = listOf(Products, Cart, Profile)
 
@@ -118,7 +124,11 @@ fun Tabs(
             }
         ) }
 
-        NavigationBar {
+        NavigationBar(
+            containerColor = PidkovaTheme.colors.buttonBackground,
+            contentColor = White,
+            modifier = Modifier.clip(PidkovaTheme.shapes.navBarShape)
+        ) {
             tabs.forEach { tab ->
                 NavigationBarItem(
                     selected = isCurrentTabClicked(currentDestination, tab),
@@ -139,7 +149,7 @@ fun Tabs(
                                 }
                             }
                         )
-                    },
+                    }
                 )
             }
 

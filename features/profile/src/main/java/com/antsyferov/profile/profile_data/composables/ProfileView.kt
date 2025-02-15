@@ -12,12 +12,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.antsyferov.profile.models.ProfileUi
+import com.antsyferov.profile.profile_data.redux.ProfileEvents
+import com.antsyferov.ui.components.Button
 import com.antsyferov.ui.components.Text
 import com.antsyferov.ui.theme.PidkovaTheme
 
 @Composable
 fun ProfileView(
-    profile: ProfileUi
+    profile: ProfileUi,
+    onEvent: (ProfileEvents) -> Unit
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -100,5 +103,11 @@ fun ProfileView(
             )
         }
 
+        Spacer(Modifier.height(PidkovaTheme.dimensions.spacingLarge))
+
+        Button(
+            text = "Log out",
+            onClick = { onEvent(ProfileEvents.LogOutClicked) }
+        )
     }
 }
