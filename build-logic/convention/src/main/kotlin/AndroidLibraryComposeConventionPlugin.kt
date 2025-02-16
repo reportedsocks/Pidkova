@@ -37,6 +37,8 @@ class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx-compose-foundation-layout").get())
                 add("implementation", libs.findLibrary("androidx-compose-material3").get())
                 add("implementation", libs.findLibrary("androidx-compose-material-iconsExtended").get())
+
+                add("implementation", libs.findLibrary("androidx.navigation.compose").get())
             }
         }
     }

@@ -12,4 +12,5 @@ android {
 
 dependencies {
     implementation(project(":core:domain"))
+    implementation(kotlin("reflect"))
 }
