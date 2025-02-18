@@ -10,7 +10,7 @@ fun Product.toEntity(): ProductEntity {
         brand = this@toEntity.brand
         price = this@toEntity.price
         rating = this@toEntity.rating
-        description = this@toEntity.description
+        promoText = this@toEntity.description
     }
 }
 
@@ -21,6 +21,6 @@ fun ProductEntity.toDomain(): Product {
         brand = brand,
         price = price,
         rating = rating,
-        description = description
+        description = promoText
     )
 }

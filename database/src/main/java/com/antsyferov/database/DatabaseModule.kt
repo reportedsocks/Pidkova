@@ -2,6 +2,7 @@ package com.antsyferov.database
 
 import com.antsyferov.database.datasources.RealmCartDataSource
 import com.antsyferov.database.datasources.RealmProductsDataSource
+import com.antsyferov.database.migration.migration
 import com.antsyferov.database.models.CartItemEntity
 import com.antsyferov.database.models.ProductEntity
 import com.antsyferov.repository.interfaces.LocalCartDataSource
@@ -19,12 +20,15 @@ class DatabaseModule {
     @Single
     fun provideRealm(): Realm {
         return Realm.open(
-            configuration = RealmConfiguration.create(
+            configuration = RealmConfiguration.Builder(
                 schema = setOf(
                     ProductEntity::class,
                     CartItemEntity::class
                 )
             )
+                .migration(migration)
+                .schemaVersion(1)
+                .build()
         )
     }
 
