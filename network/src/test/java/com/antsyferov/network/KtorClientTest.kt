@@ -3,8 +3,6 @@ package com.antsyferov.network
 import com.antsyferov.domain.Result
 import com.antsyferov.domain.interfaces.Datastore
 import com.antsyferov.network.datasources.KtorProfileDataSource
-import com.antsyferov.repository.interfaces.LocalCartDataSource
-import com.antsyferov.repository.interfaces.LocalProductsDataSource
 import com.google.common.truth.Truth.assertThat
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
@@ -12,8 +10,6 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
-import io.mockk.slot
-import io.mockk.verify
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
