@@ -35,12 +35,7 @@ class CartRepoImpl(
             return if (cartItem.quantity > 1) {
                 localCartDataSource.updateCartItem(cartItem.copy(quantity = cartItem.quantity - 1))
             } else {
-                localCartDataSource.deleteCartItem(
-                    CartItem(
-                        product = (localProductsDataSource.getProduct(productId) as? Result.Success)?.data ?: return Result.Error(PidkovaException.UNKNOWN),
-                        quantity = 1
-                    )
-                )
+                localCartDataSource.deleteCartItem(cartItem)
             }
         }
 

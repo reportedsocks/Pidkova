@@ -34,6 +34,10 @@ class JvmLibraryConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("koin-jvm").get())
                 add("implementation", libs.findLibrary("koin-annotations").get())
                 add("ksp", libs.findLibrary("koin-ksp").get())
+                add("testImplementation",  libs.findLibrary("junit").get())
+                add("testImplementation",  libs.findLibrary("truth").get())
+                add("testImplementation",  libs.findLibrary("mockk").get())
+                add("testImplementation",  libs.findLibrary("test-coroutines").get())
             }
         }
     }

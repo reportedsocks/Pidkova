@@ -19,10 +19,12 @@ import com.android.build.gradle.LibraryExtension
 import com.antsyferov.pidkova.configureFlavors
 import com.antsyferov.pidkova.configureKotlinAndroid
 import com.antsyferov.pidkova.disableUnnecessaryAndroidTests
+import com.antsyferov.pidkova.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.kotlin
 
 class AndroidLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -47,10 +49,12 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 disableUnnecessaryAndroidTests(target)
             }
             dependencies {
-                //add("androidTestImplementation", kotlin("test"))
-                //add("testImplementation", kotlin("test"))
-
-                //add("implementation", libs.findLibrary("androidx.tracing.ktx").get())
+                add("androidTestImplementation", kotlin("test"))
+                add("testImplementation", kotlin("test"))
+                add("testImplementation",  libs.findLibrary("junit").get())
+                add("testImplementation",  libs.findLibrary("truth").get())
+                add("testImplementation",  libs.findLibrary("mockk").get())
+                add("testImplementation",  libs.findLibrary("test-coroutines").get())
             }
         }
     }
