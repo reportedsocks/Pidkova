@@ -118,9 +118,9 @@ fun Tabs(
         val currentDestination = navBackStackEntry?.destination
         val icons by remember { mutableStateOf(
             buildMap {
-                put(Products, Icons.Default.Home)
-                put(Cart, Icons.Default.ShoppingCart)
-                put(Profile, Icons.Default.AccountCircle)
+                put(Products, Icons.Default.Home to "Home tab")
+                put(Cart, Icons.Default.ShoppingCart to "Cart tab")
+                put(Profile, Icons.Default.AccountCircle to "Profile tab")
             }
         ) }
 
@@ -134,8 +134,8 @@ fun Tabs(
                     selected = isCurrentTabClicked(currentDestination, tab),
                     icon = {
                         Icon(
-                            imageVector = icons[tab] ?: Icons.Default.Error,
-                            contentDescription = null
+                            imageVector = icons[tab]?.first ?: Icons.Default.Error,
+                            contentDescription = icons[tab]?.second
                         )
                     },
                     onClick = {

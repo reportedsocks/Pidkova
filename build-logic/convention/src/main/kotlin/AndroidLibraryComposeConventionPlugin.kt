@@ -39,6 +39,8 @@ class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx-compose-material-iconsExtended").get())
 
                 add("implementation", libs.findLibrary("androidx.navigation.compose").get())
+                add("androidTestImplementation", libs.findLibrary("androidx-ui-test-junit4-compose").get())
+                add("androidTestImplementation", libs.findLibrary("androidx-ui-test-junit4-manifest").get())
             }
         }
     }

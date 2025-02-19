@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.antsyferov.products.models.ProductUi
 import com.antsyferov.ui.theme.PidkovaTheme
@@ -33,7 +34,8 @@ fun ProductsGrid(
         items(items = products, key = { it.id }) { product ->
             ProductItem(
                 product = product,
-                onClick = onItemClick
+                onClick = onItemClick,
+                modifier = Modifier.testTag("product_item")
             )
         }
     }

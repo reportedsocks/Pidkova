@@ -34,6 +34,8 @@ class AndroidApplicationComposeConventionPlugin : Plugin<Project> {
 
             dependencies {
                 add("implementation", libs.findLibrary("koin-androidx-compose").get())
+                add("androidTestImplementation", libs.findLibrary("androidx-ui-test-junit4-compose").get())
+                add("androidTestImplementation", libs.findLibrary("androidx-ui-test-junit4-manifest").get())
             }
         }
     }

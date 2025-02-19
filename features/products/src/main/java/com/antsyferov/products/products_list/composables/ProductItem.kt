@@ -33,7 +33,7 @@ fun ProductItem(
     modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .widthIn(max = 150.dp)
             .fillMaxWidth()
             .background(PidkovaTheme.colors.border)
