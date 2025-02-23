@@ -87,5 +87,9 @@ gradlePlugin {
             id = "pidkova.koin"
             implementationClass = "KoinConventionPlugin"
         }
+        register("stringGeneration") {
+            id = "pidkova.string.generation"
+            implementationClass = "StringGenerationPlugin"
+        }
     }
 }

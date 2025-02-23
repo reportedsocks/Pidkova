@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.pidkova.android.library)
     alias(libs.plugins.pidkova.android.library.compose)
+    alias(libs.plugins.pidkova.string.generation)
 }
 
 android {
@@ -13,4 +14,9 @@ android {
 dependencies {
     implementation(project(":core:domain"))
     implementation(kotlin("reflect"))
+}
+
+tasks.named<StringGenerationTask>("stringGeneration") {
+    source = "$projectDir/strings.csv"
+    prefix = "core_ui_"
 }

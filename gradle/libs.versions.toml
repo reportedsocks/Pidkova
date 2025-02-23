@@ -122,4 +122,5 @@ pidkova-android-library = { id = "pidkova.android.library" }
 pidkova-android-library-compose = { id = "pidkova.android.library.compose" }
 pidkova-jvm-library = { id = "pidkova.jvm.library" }
 pidkova-koin = { id = "pidkova.koin" }
+pidkova-string-generation = { id = "pidkova.string.generation" }
 
