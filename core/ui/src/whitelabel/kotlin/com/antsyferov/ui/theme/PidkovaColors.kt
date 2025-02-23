@@ -21,5 +21,7 @@ data class PidkovaColors(
     val buttonBackgroundPressed: Color = Green80,
     val buttonText: Color = White,
     val cardBackground: Color = White,
-    val cardBorder: Color = Blue80
+    val cardBorder: Color = Blue80,
+    val chipBorder: Color = Pink,
+    val textGradientHighlight: Color = MexicanPink
 )

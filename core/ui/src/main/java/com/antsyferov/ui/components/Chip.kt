@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.antsyferov.ui.theme.PidkovaTheme
-import com.antsyferov.ui.theme.Pink
 
 @Composable
 fun Chip(
@@ -17,7 +16,7 @@ fun Chip(
 ) {
     Box(
         modifier = modifier
-            .background(color = Pink)
+            .background(color = PidkovaTheme.colors.chipBorder)
             .padding(PidkovaTheme.dimensions.border)
     ) {
         Row(

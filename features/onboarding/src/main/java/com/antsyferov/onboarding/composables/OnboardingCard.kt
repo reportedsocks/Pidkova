@@ -26,8 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import com.antsyferov.ui.components.Button
 import com.antsyferov.ui.components.Text
-import com.antsyferov.ui.theme.Black
-import com.antsyferov.ui.theme.MexicanPink
 import com.antsyferov.ui.theme.PidkovaTheme
 import kotlin.math.absoluteValue
 
@@ -77,12 +75,13 @@ private fun OnboardingCardOverlay(
             .padding(horizontal = PidkovaTheme.dimensions.paddingLarge)
     ) {
 
+        val highlight = PidkovaTheme.colors.textGradientHighlight
         val brush = remember(offset) {
             val gradientOffset = offset * 1000
             Brush.linearGradient(
-                0.0f to Black,
-                0.5f to MexicanPink,
-                1f to Black,
+                0.0f to Color.Black,
+                0.5f to highlight,
+                1f to Color.Black,
                 start = Offset(gradientOffset, 0f),
                 end = Offset(gradientOffset + 200f,50f)
             )
