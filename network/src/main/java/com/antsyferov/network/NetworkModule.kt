@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
+import org.koin.core.annotation.Named
 import org.koin.core.annotation.Qualifier
 import org.koin.core.annotation.Single
 
